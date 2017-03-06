@@ -51,7 +51,7 @@ class DiscoveryActorIT extends TestKit(ActorSystem("MySpec"))
   implicit val uri = ConfigComponent.config.getString(ConsulComponent.uriField)
 
   val services = (0 to 4).map(_ => AgentService.randomObject.copy(Tags = List[String]("theTag")))
-  val servicesMap = services.map(s => s.Service -> s.Tags) ++ Map[String, List[String]]("consul" -> List.empty[String])
+  val servicesMap = services.map(s => s.Service -> s.Tags)
   val datacenter = Await.result(getDatacenter, 3 seconds)
   val nodeCatalog = Await.result(getNode, 3 seconds)
   val catalogServices = services.map { service => service.toCatalogService(datacenter, nodeCatalog)}
@@ -71,7 +71,7 @@ class DiscoveryActorIT extends TestKit(ActorSystem("MySpec"))
       val servicesActor = TestActorRef[ServicesActor](new ServicesActor(orchestratorActor.ref))
       val discoveryActor = TestActorRef[DiscoveryActor](new DiscoveryActor(service, servicesActor))
 
-      discoveryActor ! DiscoverServices(List.empty[String])
+      discoveryActor ! DiscoverServices(List("theTag"))
       expectMsg(AppsDiscovered(servicesMap.toMap))
       Thread.sleep(1000)
       servicesActor.underlyingActor.services.keys should contain theSameElementsAs servicesMap.toMap.keySet

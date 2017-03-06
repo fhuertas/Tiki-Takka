@@ -22,7 +22,6 @@ import akka.actor.Props
 import com.stratio.tikitakka.common.message._
 import com.stratio.tikitakka.common.model.discovery.DiscoveryAppInfo
 
-import scala.util.Try
 import scalaz.Reader
 
 class ServiceActor(discoveryActor: ActorRef, orchestrator: ActorRef) extends Actor with ActorLogging {
@@ -54,7 +53,7 @@ class ServiceActor(discoveryActor: ActorRef, orchestrator: ActorRef) extends Act
     case AppDiscovered(None) =>
       log.debug(s"[${status.map(_.name).getOrElse("UNKNOWN")}] not discovered sending message to killing myself")
       context.parent ! AppUnDiscovered(appName)
-      orchestrator ! UnregisterApplication(status.get)
+      status.foreach(st => orchestrator ! UnregisterApplication(st))
 
     case _ => log.debug(s"Unknown message")
   }
