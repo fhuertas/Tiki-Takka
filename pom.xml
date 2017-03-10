@@ -60,36 +60,36 @@
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>common</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>discovery</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>discovery</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>orchestration</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>common</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.stratio.tikitakka</groupId>
                 <artifactId>orchestration</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -192,6 +192,13 @@
                         <exclude>**/application.conf</exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.scoverage</groupId>
@@ -218,15 +225,6 @@
                 <!-- see http://davidb.github.com/scala-maven-plugin -->
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <!--<configuration>-->
-                <!--<launchers>-->
-                <!--<launcher>-->
-                <!--<id>debug</id>-->
-                <!--<mainClass>${main.class.boot}</mainClass>-->
-                <!--</launcher>-->
-                <!--&lt;!&ndash; you could define other launcher &ndash;&gt;-->
-                <!--</launchers>-->
-                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
