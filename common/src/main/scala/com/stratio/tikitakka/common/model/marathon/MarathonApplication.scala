@@ -170,9 +170,6 @@ case class MarathonContainer(docker: Docker, `type`: String = "DOCKER", volumes:
 
 object MarathonContainer {
 
-  val dockerLiteral: String = "docker"
-  val typeLiteral: String = "type"
-
   implicit val writes: Writes[MarathonContainer] = Json.writes[MarathonContainer]
   implicit val reads: Reads[MarathonContainer] = Json.reads[MarathonContainer]
 }
@@ -185,10 +182,6 @@ case class Docker(image: String,
                   forcePullImage: Option[Boolean] = None)
 
 object Docker {
-
-  val imageLiteral: String = "image"
-  val portMappingsLiteral: String = "portMappings"
-  val networkLiteral: String = "network"
 
   implicit val writes: Writes[Docker] = Json.writes[Docker]
   implicit val reads: Reads[Docker] = Json.reads[Docker]
@@ -206,10 +199,6 @@ case class MarathonVolume(containerPath: String, hostPath: String, mode: String)
 
 object MarathonVolume {
 
-  val containerPathLiteral: String = "containerPath"
-  val hostPathLiteral: String = "hostPath"
-  val modeLiteral: String = "mode"
-
   implicit val writes: Writes[MarathonVolume] = Json.writes[MarathonVolume]
   implicit val reads: Reads[MarathonVolume] = Json.reads[MarathonVolume]
 }
@@ -221,9 +210,6 @@ case class DockerPortMapping(hostPort: Int,
                              labels: Option[Map[String, String]] = None)
 
 object DockerPortMapping {
-
-  val hostPortLiteral: String = "hostPort"
-  val containerPortLiteral: String = "containerPort"
 
   implicit val writes: Writes[DockerPortMapping] = Json.writes[DockerPortMapping]
   implicit val reads: Reads[DockerPortMapping] = Json.reads[DockerPortMapping]
