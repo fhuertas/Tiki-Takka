@@ -44,4 +44,3 @@ Previously add a dev_application.conf file on commons/src/main/resources folder 
 Distribution:
 + RPM/DEB: From parent folder -> mvn package -Ppackage
 
-
