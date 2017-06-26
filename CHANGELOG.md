@@ -2,7 +2,7 @@
 
 ## 0.4.0 (upcoming)
 
-* Pending changelog
+* Added ipAddress parameters in marathon models
 
 ## 0.3.0 (April 26, 2017)
 
