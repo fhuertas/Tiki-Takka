@@ -54,7 +54,7 @@ class MarathonApplicationUnitTest extends WordSpec with ShouldMatchers {
       jsDocker.fields should contain("network", JsString("HOST"))
     }
 
-    "be read fron json correctly" in {
+    "be read from json correctly" in {
       val expectedComponent =
         marathon.MarathonApplication(
           id = "app1",
@@ -68,8 +68,7 @@ class MarathonApplicationUnitTest extends WordSpec with ShouldMatchers {
                 image = "centos:7",
                 network = "BRIDGE",
                 portMappings = Option(Seq(DockerPortMapping(12, 21)))
-              ),
-              `type` = "DOCKER"
+              )
             ),
           portDefinitions =
             Option(Seq(MarathonPortDefinition(
@@ -79,7 +78,11 @@ class MarathonApplicationUnitTest extends WordSpec with ShouldMatchers {
           healthChecks = Some(List()),
           labels = Map("tag" -> "tag1,tag2"),
           ports= Option(Seq(0)),
-          constraints = Some(Seq(Seq("constraint"))))
+          constraints = Some(Seq(Seq("constraint"))),
+          ipAddress = Option(IpAddress(
+            Option("some_network"),
+            Option(DiscoveryInfo(Seq(PortAddressDefinition(0, "some_port", "tcp"))))))
+        )
 
       val text =
         io.Source.fromInputStream(getClass.getClassLoader.getResourceAsStream("component-marathon.json")).mkString

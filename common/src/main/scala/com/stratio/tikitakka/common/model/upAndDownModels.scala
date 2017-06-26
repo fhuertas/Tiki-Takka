@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.stratio.tikitakka.common.model
 
 import play.api.libs.json.Json
@@ -35,7 +36,8 @@ case class CreateApp(id: String,
                      healthChecks: Option[Seq[HealthCheck]] = None,
                      labels: Map[String, String] = Map.empty[String, String],
                      ports: Option[Seq[Int]] = None,
-                     constraints: Option[Seq[Seq[String]]] = None
+                     constraints: Option[Seq[Seq[String]]] = None,
+                     ipAddress: Option[IpAddress] = None
                     ) extends Container
 
 case class ContainerId(id: String)
@@ -56,28 +58,24 @@ object Parameter {
 
   implicit val writes: Writes[Parameter] = Json.writes[Parameter]
   implicit val reads: Reads[Parameter] = Json.reads[Parameter]
-
 }
 
 object ContainerInfo {
 
   implicit val writes: Writes[ContainerInfo] = Json.writes[ContainerInfo]
   implicit val reads: Reads[ContainerInfo] = Json.reads[ContainerInfo]
-
 }
 
 object DockerContainerInfo {
 
   implicit val writes: Writes[DockerContainerInfo] = Json.writes[DockerContainerInfo]
   implicit val reads: Reads[DockerContainerInfo] = Json.reads[DockerContainerInfo]
-
 }
 
 object CreateApp {
 
   implicit val writes: Writes[CreateApp] = Json.writes[CreateApp]
   implicit val reads: Reads[CreateApp] = Json.reads[CreateApp]
-
 }
 
 case class Volume(containerPath: String, hostPath: String, mode: String)
@@ -86,7 +84,6 @@ object Volume {
 
   implicit val writes: Writes[Volume] = Json.writes[Volume]
   implicit val reads: Reads[Volume] = Json.reads[Volume]
-
 }
 
 case class PortMapping(hostPort: Int,
@@ -99,7 +96,6 @@ object PortMapping {
 
   implicit val writes: Writes[PortMapping] = Json.writes[PortMapping]
   implicit val reads: Reads[PortMapping] = Json.reads[PortMapping]
-
 }
 
 case class PortDefinition(name: Option[String] = None,
@@ -136,5 +132,36 @@ object HealthCheckCommand {
 
   implicit val writes: Writes[HealthCheckCommand] = Json.writes[HealthCheckCommand]
   implicit val reads: Reads[HealthCheckCommand] = Json.reads[HealthCheckCommand]
+}
+
+case class IpAddress(
+                      networkName: Option[String] = None,
+                      discovery: Option[DiscoveryInfo] = None,
+                      groups: Option[Seq[String]] = None,
+                      labels: Option[Map[String, String]] = None
+                    )
+
+object IpAddress {
+
+  implicit val writes: Writes[IpAddress] = Json.writes[IpAddress]
+  implicit val reads: Reads[IpAddress] = Json.reads[IpAddress]
+}
+
+case class DiscoveryInfo(ports: Seq[PortAddressDefinition])
+
+object DiscoveryInfo {
+
+  implicit val writes: Writes[DiscoveryInfo] = Json.writes[DiscoveryInfo]
+  implicit val reads: Reads[DiscoveryInfo] = Json.reads[DiscoveryInfo]
+}
+
+case class PortAddressDefinition(number: Int,
+                                 name: String,
+                                 protocol: String)
+
+object PortAddressDefinition {
+
+  implicit val writes: Writes[PortAddressDefinition] = Json.writes[PortAddressDefinition]
+  implicit val reads: Reads[PortAddressDefinition] = Json.reads[PortAddressDefinition]
 }
 

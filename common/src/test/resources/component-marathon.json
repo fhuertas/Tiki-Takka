@@ -30,6 +30,18 @@
         }]
       }
     },
+    "ipAddress": {
+      "networkName": "some_network",
+      "discovery": {
+        "ports": [
+          {
+            "number": 0,
+            "name": "some_port",
+            "protocol": "tcp"
+          }
+        ]
+      }
+    },
     "healthChecks": [],
     "readinessChecks": [],
     "dependencies": [],
@@ -41,7 +53,6 @@
       "tag": "tag1,tag2"
     },
     "acceptedResourceRoles": null,
-    "ipAddress": null,
     "version": "2017-02-10T08:27:55.887Z",
     "residency": null,
     "secrets": {},

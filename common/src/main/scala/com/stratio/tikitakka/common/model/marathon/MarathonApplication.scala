@@ -35,7 +35,8 @@ case class MarathonApplication(id: String,
                                healthChecks: Option[Seq[MarathonHealthCheck]] = None,
                                labels: Map[String, String] = Map.empty[String, String],
                                ports: Option[Seq[Int]] = None,
-                               constraints: Option[Seq[Seq[String]]] = None) extends Container {
+                               constraints: Option[Seq[Seq[String]]] = None,
+                               ipAddress: Option[IpAddress] = None) extends Container {
 }
 
 object MarathonApplication {
@@ -95,7 +96,8 @@ object MarathonApplication {
       },
       labels = buildApp.labels,
       ports = buildApp.ports,
-      constraints = buildApp.constraints
+      constraints = buildApp.constraints,
+      ipAddress = buildApp.ipAddress
     )
 
   def fromJson(id: String,
@@ -112,7 +114,8 @@ object MarathonApplication {
                healthChecks: Option[Seq[MarathonHealthCheck]],
                labels: Map[String, String],
                ports: Option[Seq[Int]],
-               constraints: Option[Seq[Seq[String]]]) =
+               constraints: Option[Seq[Seq[String]]],
+               ipAddress: Option[IpAddress] = None) =
     MarathonApplication(
       id = id.replaceFirst("^/", ""),
       cpus = cpus,
@@ -128,7 +131,8 @@ object MarathonApplication {
       healthChecks = healthChecks,
       labels = labels,
       ports = ports,
-      constraints = constraints
+      constraints = constraints,
+      ipAddress = ipAddress
     )
 
   // Literals
@@ -147,6 +151,7 @@ object MarathonApplication {
   val labelsLiteral = "labels"
   val portsLiteral = "ports"
   val constraintsLiteral = "constraints"
+  val ipAddressLiteral = "ipAddress"
 
   //Fixed Values
   val TcpValue = "tcp"
@@ -168,7 +173,8 @@ object MarathonApplication {
       (__ \ healthChecksLiteral).readNullable[Seq[MarathonHealthCheck]] and
       (__ \ labelsLiteral).read[Map[String, String]] and
       (__ \ portsLiteral).readNullable[Seq[Int]] and
-      (__ \ constraintsLiteral).readNullable[Seq[Seq[String]]]
+      (__ \ constraintsLiteral).readNullable[Seq[Seq[String]]] and
+      (__ \ ipAddressLiteral).readNullable[IpAddress]
     ) (MarathonApplication.fromJson _)
 }
 
